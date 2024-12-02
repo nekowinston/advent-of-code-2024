@@ -1,0 +1,60 @@
+cabal-version: 2.2
+
+-- This file has been generated from package.yaml by hpack version 0.37.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           advent-of-code
+version:        0.1.0.0
+description:    Advent of Code 2024 solutions by nekowinston
+homepage:       https://code.winston.sh/winston/advent-of-code-2024
+author:         nekowinston
+maintainer:     hey@winston.sh
+copyright:      2024 nekowinston
+license:        BSD-3-Clause
+build-type:     Simple
+
+library
+  exposed-modules:
+      AOC.Day1
+  other-modules:
+      Paths_advent_of_code
+  autogen-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable advent-of-code-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_advent_of_code
+  autogen-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      advent-of-code
+    , base >=4.7 && <5
+  default-language: Haskell2010
+
+test-suite advent-of-code-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Days.Day1
+      Paths_advent_of_code
+  autogen-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HUnit
+    , advent-of-code
+    , base >=4.7 && <5
+  default-language: Haskell2010
