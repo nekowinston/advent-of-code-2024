@@ -16,26 +16,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - uses: https://github.com/haskell-actions/setup@v2
+    - uses: https://github.com/DeterminateSystems/nix-installer-action@v16
       with:
-        ghc-version: 9.8.2
-        enable-stack: true
-        stack-version: 3.1.1
+        diagnostic-endpoint: ""
 
-    - name: Cache
-      uses: actions/cache@v4
-      env:
-        cache-name: cache-stack
+    - uses: https://github.com/DeterminateSystems/magic-nix-cache-action@v8
       with:
-        path: .stack-work
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('stack.yaml.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+        diagnostic-endpoint: ""
 
     - name: Build
-      run: stack build
-
-    - name: Run tests
-      run: stack test
+      run: nix build

@@ -1,2 +1,5 @@
-.stack-work/
-*~
+# cabal
+dist-newstyle/
+
+# nix
+/result

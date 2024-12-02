@@ -5,7 +5,7 @@
   };
 
   outputs =
-    { flake-parts, ... }@inputs:
+    { flake-parts, self, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "aarch64-darwin"
@@ -13,50 +13,47 @@
         "x86_64-darwin"
         "x86_64-linux"
       ];
+      flake.overlays.default = final: prev: {
+        haskellPackages = prev.haskellPackages.override (old: {
+          overrides = final.lib.composeExtensions (old.overrides or (_: _: { })) (
+            hself: hsuper: {
+              advent-of-code = hself.generateOptparseApplicativeCompletions [ "advent-of-code" ] (
+                prev.haskellPackages.callPackage ./nix { }
+              );
+            }
+          );
+        });
+      };
       perSystem =
-        { lib, pkgs, ... }:
+        { pkgs, system, ... }:
         let
-          # need to match Stackage LTS version from stack.yaml snapshot
-          hPkgs = pkgs.haskell.packages.ghc982;
-
-          # Wrap Stack to use the flake Haskell packages
-          stack-wrapped = pkgs.symlinkJoin {
-            name = "stack";
-            paths = [ pkgs.stack ];
-            buildInputs = [ pkgs.makeWrapper ];
-            postBuild = ''
-              wrapProgram $out/bin/stack \
-                --add-flags "--no-nix --system-ghc --no-install-ghc"
-            '';
-          };
-
-          myDevTools = [
-            # GHC compiler in the desired version (will be available on PATH)
-            hPkgs.ghc
-            # Continuous terminal Haskell compile checker
-            hPkgs.ghcid
-            # Haskell formatter
-            hPkgs.fourmolu
-            # Haskell codestyle checker
-            hPkgs.hlint
-            # Lookup Haskell documentation
-            hPkgs.hoogle
-            # LSP server for editor
-            hPkgs.haskell-language-server
-            # auto generate LSP hie.yaml file from cabal
-            hPkgs.implicit-hie
-            # Haskell refactoring tool
-            hPkgs.retrie
-            # Haskell build tool
-            stack-wrapped
-          ] ++ lib.optionals pkgs.stdenv.isDarwin [ ];
+          hPkgs = pkgs.haskellPackages;
+          hLib = pkgs.haskell.lib;
         in
         {
-          devShells.default = pkgs.mkShell {
-            buildInputs = myDevTools;
-            env.LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath myDevTools;
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [ self.overlays.default ];
+            config = { };
           };
+
+          devShells.default = hPkgs.shellFor {
+            packages = p: [ p.advent-of-code ];
+            nativeBuildInputs = with pkgs; [
+              cabal-install
+              cabal2nix # cd nix && cabal2nix ../. > default.nix && ..
+              ghcid
+              haskell-language-server
+              hpack
+              hlint
+              haskellPackages.retrie # refactoring tool
+              haskellPackages.implicit-hie # auto-generate hie.yaml file
+            ];
+          };
+
           formatter = pkgs.nixfmt-rfc-style;
+
+          packages.default = hLib.justStaticExecutables pkgs.haskellPackages.advent-of-code;
         };
     };
 
