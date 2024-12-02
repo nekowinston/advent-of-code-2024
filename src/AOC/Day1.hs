@@ -1,4 +1,4 @@
-module AOC.Day1 (solve1, solve2) where
+module AOC.Day1 where
 
 import Data.Bifunctor (bimap)
 import Data.List (sort)
