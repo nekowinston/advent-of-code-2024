@@ -1,8 +1,10 @@
 on:
   push:
     branches: ["main"]
+    paths: ['**.hs', '**.lock']
   pull_request:
     branches: ["main"]
+    paths: ['**.hs', '**.lock']
 
 permissions:
   contents: read
