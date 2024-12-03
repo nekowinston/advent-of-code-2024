@@ -1,10 +1,11 @@
 module Main (main) where
 
+import Data.Maybe (fromMaybe)
 import Options.Applicative
 
 import qualified AOC.Day1
 import qualified AOC.Day2
-import Data.Maybe (fromMaybe)
+import qualified AOC.Day3
 
 data CliArgs = MkCliArgs
   { _day :: Int
@@ -28,7 +29,7 @@ cliParser =
       )
 
 main :: IO ()
-main = solve =<< execParser opts
+main = execParser opts >>= solve
  where
   opts =
     info
@@ -41,9 +42,10 @@ solvers :: [(Solver, Solver)]
 solvers =
   [ (AOC.Day1.solve1, AOC.Day1.solve2)
   , (AOC.Day2.solve1, AOC.Day2.solve2)
+  , (AOC.Day3.solve1, AOC.Day3.solve2)
   ]
 
-printSolutions :: (Show a1, Show a2) => Int -> (p -> a1) -> (p -> a2) -> p -> IO ()
+printSolutions :: Int -> Solver -> Solver -> String -> IO ()
 printSolutions day s1 s2 input =
   putStr $
     unlines $
