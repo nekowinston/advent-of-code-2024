@@ -4,13 +4,13 @@ type Level = Int
 type Report = [Level]
 
 parseInput :: String -> [Report]
-parseInput content = map (map read . words) $ lines content
+parseInput = map (map read . words) . lines
 
 data Order = Increasing | Decreasing
 
 -- | Checks that a list of numbers is either all increasing or decreasing.
 isMonotonic :: Report -> Bool
-isMonotonic xs = isMonotonic' Increasing xs || isMonotonic' Decreasing xs
+isMonotonic = (||) <$> isMonotonic' Increasing <*> isMonotonic' Decreasing
 
 isMonotonic' :: Order -> Report -> Bool
 isMonotonic' _ [] = True
@@ -29,7 +29,7 @@ isSafe :: Report -> Bool
 isSafe = (&&) <$> isMonotonic <*> isValidDiff
 
 solve1 :: String -> Int
-solve1 input = length $ filter isSafe $ parseInput input
+solve1 = length . filter isSafe . parseInput
 
 removeOne :: [a] -> [[a]]
 removeOne xs = [removeAt i xs | i <- [0 .. length xs - 1]]
@@ -40,4 +40,4 @@ isSafeAfterDamping :: Report -> Bool
 isSafeAfterDamping xs = any isSafe $ removeOne xs
 
 solve2 :: String -> Int
-solve2 input = length $ filter isSafeAfterDamping $ parseInput input
+solve2 = length . filter isSafeAfterDamping . parseInput

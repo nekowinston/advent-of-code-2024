@@ -5,14 +5,15 @@
   };
 
   outputs =
-    { flake-parts, self, ... }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "aarch64-darwin"
         "aarch64-linux"
         "x86_64-darwin"
         "x86_64-linux"
       ];
+
       flake.overlays.default = final: prev: {
         haskellPackages = prev.haskellPackages.override (old: {
           overrides = final.lib.composeExtensions (old.overrides or (_: _: { })) (
@@ -24,6 +25,7 @@
           );
         });
       };
+
       perSystem =
         { pkgs, system, ... }:
         let
@@ -33,7 +35,7 @@
         {
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
-            overlays = [ self.overlays.default ];
+            overlays = [ inputs.self.overlays.default ];
             config = { };
           };
 
