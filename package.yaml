@@ -11,6 +11,8 @@ dependencies:
 - base >= 4.7 && < 5
 - raw-strings-qq
 - regex-tdfa
+- text
+- universe-base
 
 ghc-options:
 - -Wall

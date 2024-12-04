@@ -1,5 +1,5 @@
 { mkDerivation, base, HUnit, lib, optparse-applicative
-, raw-strings-qq, regex-tdfa
+, raw-strings-qq, regex-tdfa, text, universe-base
 }:
 mkDerivation {
   pname = "advent-of-code";
@@ -7,11 +7,16 @@ mkDerivation {
   src = ./..;
   isLibrary = true;
   isExecutable = true;
-  libraryHaskellDepends = [ base raw-strings-qq regex-tdfa ];
-  executableHaskellDepends = [
-    base optparse-applicative raw-strings-qq regex-tdfa
+  libraryHaskellDepends = [
+    base raw-strings-qq regex-tdfa text universe-base
   ];
-  testHaskellDepends = [ base HUnit raw-strings-qq regex-tdfa ];
+  executableHaskellDepends = [
+    base optparse-applicative raw-strings-qq regex-tdfa text
+    universe-base
+  ];
+  testHaskellDepends = [
+    base HUnit raw-strings-qq regex-tdfa text universe-base
+  ];
   homepage = "https://code.winston.sh/winston/advent-of-code-2024";
   license = lib.licenses.bsd3;
   mainProgram = "advent-of-code";
