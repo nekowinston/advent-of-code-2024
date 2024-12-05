@@ -16,6 +16,7 @@ build-type:     Simple
 
 library
   exposed-modules:
+      AOC.Common
       AOC.Day1
       AOC.Day2
       AOC.Day3

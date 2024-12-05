@@ -1,12 +1,15 @@
 module Days.Day2 where
 
+import Data.Text (Text)
+import qualified Data.Text as Text
 import Test.HUnit
 
 import AOC.Day2
 
-sample :: String
+sample :: [Text]
 sample =
-  unlines
+  map
+    Text.pack
     [ "7 6 4 2 1"
     , "1 2 7 8 9"
     , "9 7 6 2 1"

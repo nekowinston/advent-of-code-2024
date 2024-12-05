@@ -3,10 +3,11 @@
 
 module AOC.Day4 where
 
+import AOC.Common
 import Data.Bool (bool)
 import Data.Massiv.Array (Comp (..), Ix2 (..), Sz (..), U)
 import qualified Data.Massiv.Array as Massiv
-import Data.String (fromString)
+import Data.Text (Text)
 import qualified Data.Text as Text
 import Data.Universe.Helpers (diagonals)
 
@@ -18,18 +19,18 @@ countWord word line
  where
   n = Text.length word
 
-solve1 :: String -> Int
+solve1 :: Solver
 solve1 =
-  sum . findAllXmases . Text.lines . fromString
+  sum . findAllXmases
  where
-  allAngles :: [Text.Text] -> [Text.Text]
+  allAngles :: [Text] -> [Text]
   allAngles rows = concat [rows, cols, diag]
    where
     cols = Text.transpose rows
     diag = diag' rows <> (diag' . map Text.reverse $ rows)
     diag' = map Text.pack . diagonals . map Text.unpack
 
-  findAllXmases :: [Text.Text] -> [Int]
+  findAllXmases :: [Text] -> [Int]
   findAllXmases lns = map (countWord "XMAS") $ allAngles lns ++ map Text.reverse (allAngles lns)
 
 masStencil :: Massiv.Stencil Ix2 Char Int
@@ -62,10 +63,11 @@ masStencil = do
         ]
 {-# INLINE masStencil #-}
 
-solve2 :: String -> Int
+solve2 :: Solver
 solve2 =
   Massiv.sum
     . Massiv.compute @U
     . Massiv.applyStencil Massiv.noPadding masStencil
     . Massiv.fromLists' @U Seq
-    . lines
+    -- TODO: figure out how to not unpack here?
+    . map Text.unpack
