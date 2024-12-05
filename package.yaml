@@ -9,6 +9,7 @@ copyright:           "2024 nekowinston"
 
 dependencies:
 - base >= 4.7 && < 5
+- massiv
 - raw-strings-qq
 - regex-tdfa
 - text

@@ -4,8 +4,8 @@ import Test.HUnit
 
 import AOC.Day4
 
-sample1 :: String
-sample1 =
+sample :: String
+sample =
   unlines
     [ "MMMSXXMASM"
     , "MSAMXMSMSA"
@@ -22,12 +22,9 @@ sample1 =
 test1 :: Test
 test1 =
   TestCase $
-    assertEqual "every `XMAS` is being found" (solve1 sample1) 18
-
-sample2 :: String
-sample2 = ""
+    assertEqual "every `XMAS` is being found" (solve1 sample) 18
 
 test2 :: Test
 test2 =
   TestCase $
-    assertEqual "TODO" (solve2 sample2) (-1)
+    assertEqual "TODO" (solve2 sample) (-1)
