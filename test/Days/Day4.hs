@@ -27,4 +27,4 @@ test1 =
 test2 :: Test
 test2 =
   TestCase $
-    assertEqual "TODO" (solve2 sample) (-1)
+    assertEqual "every `MAS` stencil is ofund" (solve2 sample) 9
