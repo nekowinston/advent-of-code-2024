@@ -40,7 +40,7 @@ sortFn rules x y =
 data Annotation a = Valid a | Invalid a
 
 ruleChecker :: [Rule] -> [Update] -> (Int, Int)
-ruleChecker rules updates = (s1, s2)
+ruleChecker rules updates = (validSum, correctedSum)
  where
   classify el = bool (Invalid el) (Valid el) sorted
    where
@@ -48,16 +48,11 @@ ruleChecker rules updates = (s1, s2)
 
   annotatedUpdates = map classify updates
 
-  validSet = [el | Valid el <- annotatedUpdates]
-  invalidSet = [el | Invalid el <- annotatedUpdates]
-
-  correctedSet = map (sortBy (sortFn rules)) invalidSet
-
-  foldFn = foldr (\el acc -> acc + getMiddle el) 0
   getMiddle xs = xs !! div (length xs) 2
+  foldFn = foldr (\el acc -> acc + getMiddle el) 0
 
-  s1 = foldFn validSet
-  s2 = foldFn correctedSet
+  validSum = foldFn [el | Valid el <- annotatedUpdates]
+  correctedSum = foldFn [sortBy (sortFn rules) el | Invalid el <- annotatedUpdates]
 
 solve1 :: Solver
 solve1 = fst . uncurry ruleChecker . parser
