@@ -80,3 +80,25 @@ test-suite advent-of-code-test
     , text
     , universe-base
   default-language: Haskell2010
+
+benchmark advent-of-code-bench
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_advent_of_code
+  autogen-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      bench
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -threaded -rtsopts -with-rtsopts=-N -O2
+  build-depends:
+      advent-of-code
+    , base >=4.7 && <5
+    , criterion
+    , file-embed
+    , massiv
+    , raw-strings-qq
+    , regex-tdfa
+    , text
+    , universe-base
+  default-language: Haskell2010
