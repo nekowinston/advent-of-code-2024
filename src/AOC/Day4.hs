@@ -68,6 +68,6 @@ solve2 =
   Massiv.sum
     . Massiv.compute @U
     . Massiv.applyStencil Massiv.noPadding masStencil
-    . Massiv.fromLists' @U Seq
+    . Massiv.fromLists' @U (ParN 4)
     -- TODO: figure out how to not unpack here?
     . map Text.unpack

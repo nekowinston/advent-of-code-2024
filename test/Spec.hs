@@ -8,6 +8,7 @@ import qualified AOC.Day1
 import qualified AOC.Day2
 import qualified AOC.Day3
 import qualified AOC.Day4
+import qualified AOC.Day5
 
 type Day = Int
 type Part = Int
@@ -26,6 +27,8 @@ solverTests =
   , (3, 2, AOC.Day3.solve2, 48, Inline "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))")
   , (4, 1, AOC.Day4.solve1, 18, DayFixture)
   , (4, 2, AOC.Day4.solve2, 9, DayFixture)
+  , (5, 1, AOC.Day5.solve1, 143, DayFixture)
+  , (5, 2, AOC.Day5.solve2, 123, DayFixture)
   ]
 
 mkTest :: TestDef -> IO Test
@@ -35,9 +38,9 @@ mkTest (day, part, solver, expected, input) = do
       DayFixture -> Text.readFile $ "./test/fixtures/day" ++ show day ++ ".txt"
       Inline s -> pure $ Text.pack s
   pure $
-    TestLabel ("day " ++ show day ++ ", part " ++ show part) $
+    TestLabel ("day " ++ show day ++ " / part " ++ show part) $
       TestCase $
-        assertEqual "" expected $
+        assertEqual "equals test case" expected $
           solver content
 
 main :: IO ()

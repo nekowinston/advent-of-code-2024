@@ -11,6 +11,7 @@ import qualified AOC.Day1
 import qualified AOC.Day2
 import qualified AOC.Day3
 import qualified AOC.Day4
+import qualified AOC.Day5
 
 data CliArgs = MkCliArgs
   { _day :: Int
@@ -47,6 +48,7 @@ solvers =
   , (AOC.Day2.solve1, AOC.Day2.solve2)
   , (AOC.Day3.solve1, AOC.Day3.solve2)
   , (AOC.Day4.solve1, AOC.Day4.solve2)
+  , (AOC.Day5.solve1, AOC.Day5.solve2)
   ]
 
 printSolutions :: Int -> Solver -> Solver -> [Text] -> IO ()

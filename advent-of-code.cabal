@@ -21,6 +21,7 @@ library
       AOC.Day2
       AOC.Day3
       AOC.Day4
+      AOC.Day5
   other-modules:
       Paths_advent_of_code
   autogen-modules:
