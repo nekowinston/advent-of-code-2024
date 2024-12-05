@@ -25,12 +25,12 @@ main =
     mkParts solver p =
       bench ("part " ++ show (p + 1)) $ nf solver input
 
-  decode = Text.lines . decodeUtf8Lenient
-
   solvers :: [(Solver, Solver, [Text.Text])]
   solvers =
-    [ (AOC.Day1.solve1, AOC.Day1.solve2, decode $(embedFile "./data/day1.txt"))
-    , (AOC.Day2.solve1, AOC.Day2.solve2, decode $(embedFile "./data/day2.txt"))
-    , (AOC.Day3.solve1, AOC.Day3.solve2, decode $(embedFile "./data/day3.txt"))
-    , (AOC.Day4.solve1, AOC.Day4.solve2, decode $(embedFile "./data/day4.txt"))
-    ]
+    map
+      (\(s1, s2, p) -> (s1, s2, Text.lines $ decodeUtf8Lenient p))
+      [ (AOC.Day1.solve1, AOC.Day1.solve2, $(embedFile "./data/day1.txt"))
+      , (AOC.Day2.solve1, AOC.Day2.solve2, $(embedFile "./data/day2.txt"))
+      , (AOC.Day3.solve1, AOC.Day3.solve2, $(embedFile "./data/day3.txt"))
+      , (AOC.Day4.solve1, AOC.Day4.solve2, $(embedFile "./data/day4.txt"))
+      ]
