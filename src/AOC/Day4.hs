@@ -36,12 +36,30 @@ masStencil :: Massiv.Stencil Ix2 Char Int
 masStencil = do
   Massiv.makeStencil (Sz (3 :. 3)) (1 :. 1) $ fmap (bool 0 1) solver
  where
-  solver get = get (0 :. 0) == 'A' && or [case1, case2, case3, case4]
+  solver get = get (0 :. 0) == 'A' && any mkCase cases
    where
-    case1 = get (-1 :. -1) == 'M' && get (-1 :. 1) == 'M' && get (1 :. -1) == 'S' && get (1 :. 1) == 'S'
-    case2 = get (-1 :. -1) == 'S' && get (-1 :. 1) == 'M' && get (1 :. -1) == 'S' && get (1 :. 1) == 'M'
-    case3 = get (-1 :. -1) == 'S' && get (-1 :. 1) == 'S' && get (1 :. -1) == 'M' && get (1 :. 1) == 'M'
-    case4 = get (-1 :. -1) == 'M' && get (-1 :. 1) == 'S' && get (1 :. -1) == 'M' && get (1 :. 1) == 'S'
+    cases =
+      [ ('M', 'M', 'S', 'S')
+      , ('S', 'M', 'S', 'M')
+      , ('S', 'S', 'M', 'M')
+      , ('M', 'S', 'M', 'S')
+      ]
+    -- Check the surrounding chars in the stencil grid:
+    --
+    --  c1 ...  c2
+    --  ..  X  ...
+    --  c3 ...  c4
+    --
+    -- where `X` is (0 :. 0) == 'A'
+    -- returns True when all chars match.
+    mkCase (c1, c2, c3, c4) =
+      all
+        (uncurry (==))
+        [ (get (-1 :. -1), c1)
+        , (get (-1 :. 1), c2)
+        , (get (1 :. -1), c3)
+        , (get (1 :. 1), c4)
+        ]
 {-# INLINE masStencil #-}
 
 solve2 :: String -> Int
