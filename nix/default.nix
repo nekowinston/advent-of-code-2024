@@ -1,6 +1,6 @@
-{ mkDerivation, base, criterion, file-embed, hspec, hspec-core, lib
-, massiv, optparse-applicative, raw-strings-qq, regex-tdfa, text
-, universe-base
+{ mkDerivation, base, criterion, file-embed, hint, hspec
+, hspec-core, lib, massiv, optparse-applicative, raw-strings-qq
+, regex-tdfa, text, universe-base
 }:
 mkDerivation {
   pname = "advent-of-code";
@@ -16,7 +16,7 @@ mkDerivation {
     universe-base
   ];
   testHaskellDepends = [
-    base hspec hspec-core massiv raw-strings-qq regex-tdfa text
+    base hint hspec hspec-core massiv raw-strings-qq regex-tdfa text
     universe-base
   ];
   benchmarkHaskellDepends = [

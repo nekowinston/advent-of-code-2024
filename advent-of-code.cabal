@@ -64,6 +64,7 @@ test-suite advent-of-code-test
   other-modules:
       MakeTests
       Tests
+      UniversalSolver
       Paths_advent_of_code
   autogen-modules:
       Paths_advent_of_code
@@ -73,6 +74,7 @@ test-suite advent-of-code-test
   build-depends:
       advent-of-code
     , base >=4.7 && <5
+    , hint
     , hspec
     , hspec-core
     , massiv

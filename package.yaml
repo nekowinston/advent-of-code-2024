@@ -70,3 +70,4 @@ tests:
     - advent-of-code
     - hspec
     - hspec-core
+    - hint

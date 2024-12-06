@@ -6,5 +6,4 @@ import MakeTests
 main :: IO ()
 main = do
   dayTests <- makeDayTests
-  hspec $ 
-    describe "daily tests" $ fromSpecList dayTests
+  hspec $ describe "daily tests" $ fromSpecList dayTests
