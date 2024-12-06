@@ -65,6 +65,8 @@ tests:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    - -O0
     dependencies:
     - advent-of-code
-    - HUnit
+    - hspec
+    - hspec-core

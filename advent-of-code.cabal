@@ -62,16 +62,19 @@ test-suite advent-of-code-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      MakeTests
+      Tests
       Paths_advent_of_code
   autogen-modules:
       Paths_advent_of_code
   hs-source-dirs:
       test
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -threaded -rtsopts -with-rtsopts=-N -O0
   build-depends:
-      HUnit
-    , advent-of-code
+      advent-of-code
     , base >=4.7 && <5
+    , hspec
+    , hspec-core
     , massiv
     , raw-strings-qq
     , regex-tdfa

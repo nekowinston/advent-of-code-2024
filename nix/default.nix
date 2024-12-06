@@ -1,5 +1,5 @@
-{ mkDerivation, base, criterion, file-embed, HUnit, lib, massiv
-, optparse-applicative, raw-strings-qq, regex-tdfa, text
+{ mkDerivation, base, criterion, file-embed, hspec, hspec-core, lib
+, massiv, optparse-applicative, raw-strings-qq, regex-tdfa, text
 , universe-base
 }:
 mkDerivation {
@@ -16,7 +16,8 @@ mkDerivation {
     universe-base
   ];
   testHaskellDepends = [
-    base HUnit massiv raw-strings-qq regex-tdfa text universe-base
+    base hspec hspec-core massiv raw-strings-qq regex-tdfa text
+    universe-base
   ];
   benchmarkHaskellDepends = [
     base criterion file-embed massiv raw-strings-qq regex-tdfa text
