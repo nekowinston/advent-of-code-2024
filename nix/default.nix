@@ -12,8 +12,8 @@ mkDerivation {
     base massiv raw-strings-qq regex-tdfa text universe-base
   ];
   executableHaskellDepends = [
-    base massiv optparse-applicative raw-strings-qq regex-tdfa text
-    universe-base
+    base massiv optparse-applicative raw-strings-qq regex-tdfa
+    template-haskell text universe-base
   ];
   testHaskellDepends = [
     base hint hspec hspec-core massiv raw-strings-qq regex-tdfa text
