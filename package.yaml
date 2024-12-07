@@ -56,6 +56,7 @@ benchmarks:
     - advent-of-code
     - criterion
     - file-embed
+    - template-haskell
 
 tests:
   advent-of-code-test:

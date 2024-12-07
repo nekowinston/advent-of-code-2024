@@ -1,6 +1,6 @@
 { mkDerivation, base, criterion, file-embed, hint, hspec
 , hspec-core, lib, massiv, optparse-applicative, raw-strings-qq
-, regex-tdfa, text, universe-base
+, regex-tdfa, template-haskell, text, universe-base
 }:
 mkDerivation {
   pname = "advent-of-code";
@@ -20,8 +20,8 @@ mkDerivation {
     universe-base
   ];
   benchmarkHaskellDepends = [
-    base criterion file-embed massiv raw-strings-qq regex-tdfa text
-    universe-base
+    base criterion file-embed massiv raw-strings-qq regex-tdfa
+    template-haskell text universe-base
   ];
   homepage = "https://code.winston.sh/winston/advent-of-code-2024";
   license = lib.licenses.bsd3;
